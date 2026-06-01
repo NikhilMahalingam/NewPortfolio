@@ -18,7 +18,7 @@ function Button({ asChild, className = "", children }) {
   return <button className={className}>{children}</button>;
 }
 
-const profileImage = "/profileImage.png";
+const profileImage = "/profileImage.jpg";
 
 const contact = {
   name: "Nikhil Mahalingam",
@@ -53,7 +53,7 @@ const beyondClassroomPhotos = [
 const education = [
   {
     school: "Columbia University",
-    logo: "C",
+    logo: "/logos/columbia.png",
     degree: "M.S. Computer Engineering",
     meta: "Incoming graduate student",
     location: "New York, NY",
@@ -62,7 +62,7 @@ const education = [
   },
    {
     school: "Rutgers University — New Brunswick",
-    logo: "R",
+    logo: "/logos/rutgers.png",
     degree: "B.S. Electrical/Computer Engineering & Mathematics",
     meta: "Minor: Computer Science",
     location: "New Brunswick, NJ",
@@ -79,7 +79,7 @@ const education = [
 const experiences = [
   {
     company: "Washington State University — Vancouver REU",
-    logo: "WSU",
+    logo: "/logos/wsu.png",
     role: "Undergraduate Researcher",
     location: "Remote",
     timeframe: "Jun 2025 — Aug 2025",
@@ -92,7 +92,7 @@ const experiences = [
   },
   {
     company: "University of Delaware",
-    logo: "UD",
+    logo: "/logos/uDel.png",
     role: "AI / Hardware Security Research Assistant",
     location: "Remote",
     timeframe: "Oct 2024 — May 2025",
@@ -104,7 +104,7 @@ const experiences = [
   },
   {
     company: "Major League Baseball",
-    logo: "MLB",
+    logo: "/logos/mlb.jpg",
     role: "Software Engineer Intern",
     location: "New York, NY",
     timeframe: "Jun 2024 — Aug 2024",
@@ -118,7 +118,7 @@ const experiences = [
   },
   {
     company: "Rutgers University — Aresty Research Program",
-    logo: "RU",
+    logo: "/logos/rutgers.png",
     role: "ML / AI Research Assistant",
     location: "Piscataway, NJ",
     timeframe: "Sep 2023 — May 2024",
@@ -131,7 +131,7 @@ const experiences = [
   },
   {
     company: "Major League Baseball",
-    logo: "MLB",
+    logo: "/logos/mlb.jpg",
     role: "Software Engineer Intern",
     location: "New York, NY",
     timeframe: "Jun 2023 — Aug 2023",
@@ -247,10 +247,16 @@ function AnimatedBackground() {
   );
 }
 
-function LogoBadge({ children, className = "" }) {
+function LogoBadge({ src, alt, className = "" }) {
   return (
-    <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-red-100 bg-gradient-to-br from-red-800 via-red-600 to-orange-500 text-sm font-black tracking-tight text-white shadow-lg shadow-red-800/10 ${className}`}>
-      {children}
+    <div
+      className={`flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-red-100 bg-white p-2 shadow-lg shadow-red-800/10 ${className}`}
+    >
+      <img
+        src={src}
+        alt={alt}
+        className="h-full w-full object-contain"
+      />
     </div>
   );
 }
@@ -283,7 +289,10 @@ function TimelineCard({ item, type = "experience" }) {
     <Card className="group overflow-hidden border-red-100/80 bg-white/90 shadow-[0_18px_50px_rgba(127,29,29,0.08)] backdrop-blur transition hover:-translate-y-1 hover:bg-gradient-to-br hover:from-white hover:to-orange-50/60">
       <CardContent className="p-6 sm:p-7">
         <div className="flex flex-col gap-5 sm:flex-row">
-          <LogoBadge>{item.logo}</LogoBadge>
+          <LogoBadge
+            src={item.logo}
+            alt={`${type === "education" ? item.school : item.company} logo`}
+          />
           <div className="min-w-0 flex-1">
             <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
               <div>
@@ -313,30 +322,31 @@ function TimelineCard({ item, type = "experience" }) {
 
 function PolaroidStack({ photos }) {
   return (
-    <div className="relative mx-auto mt-10 h-[420px] w-full max-w-4xl sm:h-[480px]">
+    <div className="relative mx-auto mt-12 h-[520px] w-full max-w-6xl sm:h-[600px]">
       {photos.map((photo, index) => {
         const positions = [
-          "left-2 top-6 rotate-[-10deg] sm:left-6",
-          "left-[22%] top-20 rotate-[8deg] sm:left-[24%]",
-          "left-[45%] top-4 rotate-[-7deg] sm:left-[48%]",
-          "left-[64%] top-24 rotate-[9deg] sm:left-[68%]",
+          "left-0 top-8 rotate-[-10deg] sm:left-8",
+          "left-[18%] top-28 rotate-[8deg] sm:left-[23%]",
+          "left-[42%] top-4 rotate-[-7deg] sm:left-[47%]",
+          "left-[58%] top-32 rotate-[9deg] sm:left-[68%]",
         ];
 
         return (
           <div
             key={photo.alt}
-            className={`absolute w-[150px] sm:w-[190px] md:w-[210px] ${positions[index]} transition duration-300 hover:z-20 hover:scale-105`}
+            className={`absolute w-[210px] sm:w-[260px] md:w-[300px] ${positions[index]} transition duration-300 hover:z-20 hover:scale-105`}
           >
-            <div className="rounded-[1.1rem] border border-red-100 bg-white p-3 shadow-[0_18px_40px_rgba(0,0,0,0.14)]">
-              <div className="overflow-hidden rounded-[0.8rem] border border-red-50 bg-slate-100">
+            <div className="rounded-[1.25rem] border border-red-100 bg-white p-4 shadow-[0_22px_50px_rgba(0,0,0,0.16)]">
+              <div className="overflow-hidden rounded-[0.9rem] border border-red-50 bg-slate-100">
                 <img
                   src={photo.src}
                   alt={photo.alt}
-                  className="h-[170px] w-full object-cover sm:h-[220px]"
+                  className="h-[230px] w-full object-cover sm:h-[300px]"
                 />
               </div>
-              <div className="pt-3 text-center">
-                <p className="text-sm font-semibold tracking-wide text-slate-700">
+
+              <div className="pt-4 text-center">
+                <p className="text-base font-semibold tracking-wide text-slate-700">
                   {photo.caption}
                 </p>
               </div>
@@ -375,7 +385,15 @@ export default function Portfolio() {
           <h1 className="max-w-4xl text-5xl font-black leading-[0.95] tracking-tight text-slate-950 sm:text-7xl lg:text-8xl">Nikhil Mahalingam</h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">I’m an Electrical/Computer Engineering and Mathematics student at Rutgers, incoming M.S. Computer Engineering student at Columbia, and software engineer with experience across MLB.com, AI research, hardware security, databases, and physics-informed neural networks.</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button asChild className="rounded-2xl border-0 bg-gradient-to-r from-red-800 via-red-600 to-orange-500 px-6 py-6 text-base font-bold text-white shadow-lg shadow-red-700/20 hover:from-red-900 hover:via-red-700 hover:to-orange-600"><a href="#experience"><Icon name="briefcase" className="mr-2 h-5 w-5" />View Experience</a></Button>
+            <Button
+              asChild
+              className="rounded-2xl border-0 bg-gradient-to-r from-red-800 via-red-600 to-orange-500 px-6 py-6 text-base font-bold text-white shadow-lg shadow-red-700/20 hover:from-red-900 hover:via-red-700 hover:to-orange-600"
+            >
+              <a href="#experience" className="inline-flex items-center justify-center gap-2">
+                <Icon name="briefcase" className="h-5 w-5 shrink-0" />
+                <span>View Experience</span>
+              </a>
+            </Button>
           </div>
           <div className="mt-8 flex flex-wrap gap-3 text-sm text-slate-600">
             <a className="inline-flex items-center gap-2 rounded-full border border-red-100 bg-white/80 px-4 py-2 shadow-sm transition hover:bg-orange-50 hover:text-orange-700" href={contact.linkedin}><Icon name="linkedin" className="h-4 w-4" />LinkedIn</a>
@@ -393,7 +411,7 @@ export default function Portfolio() {
           <div className="grid gap-5 sm:grid-cols-2">
             <Card className="border-red-100 bg-white/90 shadow-[0_14px_40px_rgba(127,29,29,0.07)]"><CardContent className="p-6 text-base leading-7 text-slate-700">I enjoy turning complex technical ideas into polished products, from high-traffic sports experiences at MLB to research systems for rail perception, microfluidics, and hardware security.</CardContent></Card>
             <Card className="border-red-100 bg-white/90 shadow-[0_14px_40px_rgba(127,29,29,0.07)]"><CardContent className="p-6 text-base leading-7 text-slate-700">My background combines rigorous mathematics, electrical and computer engineering, full-stack development, databases, machine learning, and research-driven experimentation.</CardContent></Card>
-            <Card className="border-red-100 bg-white/90 shadow-[0_14px_40px_rgba(127,29,29,0.07)] sm:col-span-2"><CardContent className="p-6 text-base leading-7 text-slate-700">Outside of engineering, I compete with and captain the Rutgers Competitive Fencing Team, build community websites, participate in hackathons, and keep exploring new ways to apply AI to real-world systems.</CardContent></Card>
+            <Card className="border-red-100 bg-white/90 shadow-[0_14px_40px_rgba(127,29,29,0.07)] sm:col-span-2"><CardContent className="p-6 text-base leading-7 text-slate-700">Outside of engineering, I compete with and captain the Rutgers Competitive Fencing Team, build community websites, participate in hackathons, and keep exploring new ways to apply AI to the real-world.</CardContent></Card>
           </div>
         </div>
       </section>
