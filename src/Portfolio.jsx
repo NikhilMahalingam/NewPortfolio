@@ -13,6 +13,7 @@ const education = [
   {
     school: "Columbia University",
     logo: "/logos/columbia.png",
+    logo: "/logos/columbia.png",
     degree: "M.S. Computer Engineering",
     meta: "Graduate Student",
     location: "New York, NY",
